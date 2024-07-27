@@ -1,4 +1,4 @@
-<h1>TO run this program</h1>
+<h1>To Run this program</h1>
 
 <ul>
     <li>Step 1: Create new folder</li><br>
