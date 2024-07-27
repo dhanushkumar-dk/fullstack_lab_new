@@ -74,10 +74,9 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         });
 
         // Start server
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
+        app.listen(4000, () => {
+            console.log("Server Listening in port http://localhost:4000");
+        })
     })
     .catch(err => {
         console.error("Error connecting to the database:", err);
