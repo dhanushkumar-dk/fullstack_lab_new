@@ -1,0 +1,28 @@
+CREATE DATABASE company;
+
+USE company;
+CREATE TABLE Employee (
+    EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateWorked DATE,
+    Attraction VARCHAR(50),
+    HoursWorked INT
+);
+
+INSERT INTO Employee (FirstName, LastName, DateWorked, Attraction, HoursWorked) VALUES
+('John', 'Doe', '2024-07-01', 'RollerCoaster', 8),
+('Jane', 'Smith', '2024-07-01', 'RollerCoaster', 6),
+('Alice', 'Johnson', '2024-07-01', 'FerrisWheel', 7),
+('Bob', 'Brown', '2024-07-01', 'FerrisWheel', 5);
+
+SELECT 
+    FirstName, 
+    LastName, 
+    DateWorked, 
+    HoursWorked - AVG(HoursWorked) OVER (PARTITION BY Attraction) AS DIFFERENCE,
+    AVG(HoursWorked) OVER (PARTITION BY Attraction) AS AVERAGE
+FROM 
+    Employee;
+
+DROP DATABASE company;

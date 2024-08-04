@@ -1,0 +1,36 @@
+-- Create a new database
+CREATE DATABASE spatialdb;
+
+-- Use the newly created database
+
+
+-- Create a table with a spatial column
+USE spatialdb;
+CREATE TABLE geo_test (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255),
+  location GEOMETRY NOT NULL,
+  SPATIAL INDEX (location)  -- Create spatial index while creating the table
+);
+
+select * from geo_test;
+
+-- Insert some sample data
+INSERT INTO geo_test (name, location) VALUES
+  ('Point', ST_GeomFromText('POINT(12.3456 78.9012)')),
+  ('Line', ST_GeomFromText('LINESTRING(12.3456 78.9012, 23.4567 89.0123)')),
+  ('Polygon', ST_GeomFromText('POLYGON((12.3456 78.9012, 23.4567 89.0123, 34.5678 90.1234, 12.3456 78.9012))'));
+
+
+
+-- Query the data
+SELECT * FROM geo_test;
+
+-- Use spatial functions to query the data
+SELECT * FROM geo_test 
+WHERE ST_Distance_Sphere(location, ST_GeomFromText('POINT(12.3456 78.9012)')) < 1000;
+
+
+-- Query the data using the spatial index
+SELECT * FROM geo_test 
+WHERE ST_Distance_Sphere(location, ST_GeomFromText('POINT(12.3456 78.9012)')) < 1000;

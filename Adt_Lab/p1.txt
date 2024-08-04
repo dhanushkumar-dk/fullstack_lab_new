@@ -1,0 +1,85 @@
+a.Create an employee database with the fields:{eid,ename,dept,desig,salary,yoj,address{dno,street,locality,city}} using MongoDB
+
+
+(i).Display all the employees with salary in range(50000,75000)
+(ii).Display all the employees with desig developer
+(iii). Add an array field project to “Rahul”
+(iv). Add a new embedded object “contacts” with “email” and “phone” as array objects to “Rahul” (80)
+
+answer:
+
+// create a new database
+use employeeDB
+
+// create a new collection
+db.createCollection("employees")
+
+// inserting data
+db.employees.insertMany([
+  {
+    eid: 1,
+    ename: "Rahul",
+    dept: "IT",
+    desig: "Developer",
+    salary: 60000,
+    yoj: 2018,
+    address: {
+      dno: "123",
+      street: "Main Street",
+      locality: "Bangalore",
+      city: "Bangalore"
+    }
+  },
+  {
+    eid: 2,
+    ename: "John",
+    dept: "Sales",
+    desig: "Manager",
+    salary: 70000,
+    yoj: 2015,
+    address: {
+      dno: "456",
+      street: "Park Street",
+      locality: "Mumbai",
+      city: "Mumbai"
+    }
+  }, 
+  {
+    eid: 3,
+    ename: "Jane",
+    dept: "Marketing",
+    desig: "Executive",
+    salary: 55000,
+    yoj: 2020,
+    address: {
+      dno: "789",
+      street: "Church Street",
+      locality: "Chennai",
+      city: "Chennai"
+    }
+  }
+])
+
+
+1. Find employee whose salary range between 50000 and 75000
+
+db.employees.find({ salary: { $gt: 50000, $lt: 75000 } })
+
+
+
+2. Fine person by whose designation is Developer
+
+db.employees.find({ desig: "Developer" })
+
+
+3. Update document with array
+
+db.employees.updateOne({ ename: "Rahul" }, { $set: { project: ["Project1", "Project2"] } })
+
+
+4. Updata document with array of address
+
+db.employees.updateOne({ ename: "Rahul" }, { $set: { contacts: { email: ["rahul@example.com", "rahul2@example.com"], phone: ["1234567890", "9876543210"] } } })
+
+
+
